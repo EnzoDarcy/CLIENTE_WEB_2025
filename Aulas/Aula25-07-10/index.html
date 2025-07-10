@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="cep">
+    <div id="endereco"></div>
+
+    <script>
+        const cepIpt = document.querySelector("#cep")
+
+        cepIpt.addEventListener("change", () => {
+            cepDesejado = cepIpt.value
+            url = `https://viacep.com.br/ws/${cepDesejado}/json`
+            const objectHTTPRequest = new XMLHttpRequest()
+            
+            carregaEndereco = function() {
+                if (this.readyState == 4 && this.status == 200) {     
+                    console.log("A Resposta está pronta e está ok")
+                    resposta = JSON.parse(this.responseText)
+                    console.log(resposta)
+                    const enderecoDiv = document.querySelector("#endereco")
+                    enderecoDiv.innerHTML = resposta.logradouro
+                }
+            }
+            //configurar a requisisção
+            objectHTTPRequest.open("GET", url)
+            //enviar a requisição
+            objectHTTPRequest.send()
+            //esperar ficar pronto
+            objectHTTPRequest.onreadystatechange = carregaEndereco 
+        })
+    </script>
+</body>
+</html>

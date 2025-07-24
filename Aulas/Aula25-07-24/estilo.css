@@ -1,0 +1,74 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body */
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Container para os cards */
+  #nomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1rem;
+    list-style: none;
+    padding: 1rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+  
+  /* Cada card */
+  #nomes ul {
+    background: rgba(255,255,255,0.8);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  /* Hover efeitos */
+  #nomes ul:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+  
+  /* Imagem pokémon */
+  #nomes img {
+    width: 100px;
+    height: 100px;
+    image-rendering: pixelated; /* estilo pixel art nitido */
+  }
+  
+  /* Nome */
+  #nomes li:nth-child(2) {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    color: #333;
+  }
+  
+  /* Fonte alternativa estilo retrô para nome */
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  #nomes li:nth-child(2) {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 0.8rem;
+  }
+  
+  /* Adicionando espaçamento entre os ul internos e removendo bullets */
+  #nomes ul {
+    list-style: none;
+  }
+  #nomes li {
+    list-style: none;
+  }
+  

@@ -53,7 +53,7 @@ const campoQtd = document.querySelector("#novoQtd")
  * @param {*} localizacao 
  * @param {*} quantidade 
  */
-function Livro(ISSN, titulo, autor, editora, anoPublicacao, genero, localizacao, qtd) {
+function Livro(ISSN, titulo, autor, editora, anoPublicacao, genero, localizacao, qtd, disponivel) {
     this.ISSN = ISSN
     this.titulo = titulo
     this.autor = autor
@@ -62,6 +62,7 @@ function Livro(ISSN, titulo, autor, editora, anoPublicacao, genero, localizacao,
     this.genero = genero
     this.localizacao = localizacao
     this.qtd = qtd
+    this.disponivel = disponivel
 }
 
 /**
@@ -70,15 +71,15 @@ function Livro(ISSN, titulo, autor, editora, anoPublicacao, genero, localizacao,
  * 
  */
 async function cadastrarExemplar() {
-    console.log("oi")
-    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2004-11/index.php?modulo=livro", {
+    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2027-11/index.php?modulo=livro", {
         method: "POST",
         headers: {
-            "content-type":"application/json"
+            "Content-Type":"application/json"
         },
         body: JSON.stringify(pegaNovoLivro())
     })    
-    console.log("chamando cadastrarExemplar")
+    dados = await resposta.json()
+    console.log(dados.mensagem)
 }
 
 /**
@@ -122,11 +123,12 @@ function pegaNovoLivro() {
     let genero = campoGenero.value
     let local = campoLocal.value
     let qtd = campoQtd.value
-    return new Livro(issn, titulo, autor, editora, ano, genero, local, qtd)
+    let disponivel = true
+    return new Livro(issn, titulo, autor, editora, ano, genero, local, qtd, disponivel)
 }
 
 async function pegaLivros() {
-    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2004-11/index.php?modulo=livro")
+    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2027-11/index.php?modulo=livro")
     let livros = await resposta.json()
     return livros
 }
@@ -173,6 +175,9 @@ function exibeLivros(livros) {
         colunaQtd.textContent = element.qtd
         linha.appendChild(colunaQtd)
         
+        colunaQtd.textContent = element.disponivel
+        linha.appendChild(colunaQtd)
+
         saida.appendChild(linha)
         
     });

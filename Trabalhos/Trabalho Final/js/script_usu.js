@@ -14,9 +14,9 @@ const campoSenha = document.querySelector("#novoSenha")
  * @param {*} email 
  * @param {*} senha
  */
-function Livro(nome, email, senha) {
+function Usuario(nome, email, senha) {
     this.nome = nome
-    this.emaiç = email
+    this.email = email
     this.senha = senha
 }
 
@@ -27,25 +27,26 @@ function Livro(nome, email, senha) {
  */
 async function cadastrarUsuario() {
     console.log("oi")
-    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2004-11/index.php?modulo=usuario", {
+    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2027-11/index.php?modulo=usuario", {
         method: "POST",
         headers: {
-            "content-type":"application/json"
+            "Content-Type":"application/json"
         },
         body: JSON.stringify(pegaNovoUsuario())
-    })    
-    console.log("chamando cadastrarUsuario")
+    })
+    let repota = await resposta.json()
+    console.log(repota.mensagem)
 }
 
 function pegaNovoUsuario() {
     let nome = campoNome.value
     let email = campoEmail.value
     let senha = campoSenha.value
-    return new Livro(nome, email, senha)
+    return new Usuario(nome, email, senha)
 }
 
 async function pegaUsuarios() {
-    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2004-11/index.php?modulo=usuario")
+    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2027-11/index.php?modulo=usuario")
     let usuarios = await resposta.json()
     return usuarios
 }

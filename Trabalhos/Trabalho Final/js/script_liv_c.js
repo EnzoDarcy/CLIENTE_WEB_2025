@@ -30,9 +30,13 @@ const btnConsultarLivros = document.querySelector("#consultarLivros")
 const btnListarTodosLivros = document.querySelector("#listarLivros")
 const btnCadastrarLivro = document.querySelector("#cadastrarLivro")
 const btnRegistrarRetirada = document.querySelector("#registrarRetirada")
+const btnAtualizarLivro = document.querySelector("#atualizarLivro")
+
+const campoRegistrarRetirada = document.querySelector("#issnRetirada")
 const campoSaidaBusca = document.querySelector("#saidaBusca")
 const campoBusca = document.querySelector("#busca")
 
+const campoId = document.querySelector("#novoId")
 const campoIssn = document.querySelector("#novoIssn")
 const campoTitulo = document.querySelector("#novoTitulo")
 const campoAutor = document.querySelector("#novoAutor")
@@ -44,6 +48,7 @@ const campoQtd = document.querySelector("#novoQtd")
 
 /**
  * Função construtora de Exemplares da Biblioteca
+ * @param {*} id
  * @param {*} ISSN
  * @param {*} titulo 
  * @param {*} autor 
@@ -52,8 +57,10 @@ const campoQtd = document.querySelector("#novoQtd")
  * @param {*} genero 
  * @param {*} localizacao 
  * @param {*} quantidade 
+ * @param {*} disponivel 
  */
-function Livro(ISSN, titulo, autor, editora, anoPublicacao, genero, localizacao, qtd, disponivel) {
+function Livro(id, ISSN, titulo, autor, editora, anoPublicacao, genero, localizacao, qtd, disponivel) {
+    this.id = id
     this.ISSN = ISSN
     this.titulo = titulo
     this.autor = autor
@@ -70,16 +77,34 @@ function Livro(ISSN, titulo, autor, editora, anoPublicacao, genero, localizacao,
  * exemplar na lista de livros da biblioteca
  * 
  */
+
+async function enviaLivro(livro, metodo) {
+    const resposta = await fetch("http://localhost/DEV_WEB_I_2025/Trabalho%20Final/index.php?modulo=livro", {
+        method: metodo,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(livro),
+    })
+    console.log("chamando enviaLivro")
+    
+    const dados = await resposta.json()
+    return dados
+}
+
 async function cadastrarExemplar() {
-    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2027-11/index.php?modulo=livro", {
-        method: "POST",
-        headers: {
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify(pegaNovoLivro())
-    })    
-    dados = await resposta.json()
-    console.log(dados.mensagem)
+    let livroCadastro = pegaNovoLivro()
+    enviaLivro(livroCadastro, "POST")
+}
+
+async function atualizarLivro() {
+    let dados = await pegaLivros()
+    dados.forEach((livro) => {
+        if (livro.id === campoId.value) {
+            console.log(livro)
+            livroFormulario = pegaNovoLivro()
+            livroFormulario.id = campoId.value
+            enviaLivro(livroFormulario, "PUT")
+        }
+    })
 }
 
 /**
@@ -124,11 +149,11 @@ function pegaNovoLivro() {
     let local = campoLocal.value
     let qtd = campoQtd.value
     let disponivel = true
-    return new Livro(issn, titulo, autor, editora, ano, genero, local, qtd, disponivel)
+    return new Livro(null, issn, titulo, autor, editora, ano, genero, local, qtd, disponivel)
 }
 
 async function pegaLivros() {
-    let resposta = await fetch("http://localhost/Enzo%20Darcy/DEV_WEB_I_2025/Aula%2027-11/index.php?modulo=livro")
+    let resposta = await fetch("http://localhost/DEV_WEB_I_2025/Trabalho%20Final/index.php?modulo=livro")
     let livros = await resposta.json()
     return livros
 }
@@ -188,14 +213,18 @@ function exibeLivros(livros) {
 /**
  * Função que deverá marcar o exemplar como indisponível no acervo
  */
-function registrarRetirada() {
-    console.log("chamando registrarRetirada")
+async function registrarRetirada() {
+    let dados = await pegaLivros()
+    dados.forEach((livro) => {
+        if (livro.ISSN === campoRegistrarRetirada.value) {
+            livro.disponivel = 0
+            enviaLivro(livro, "PUT")
+        }
+    })
 }
 
 /* 
  * Bloco de chamada de eventos
  */ 
 btnCadastrarLivro.addEventListener("click", cadastrarExemplar)
-btnConsultarLivros.addEventListener("click", consultarLivros)
-btnListarTodosLivros.addEventListener("click", listarTodos)
-btnRegistrarRetirada.addEventListener("click", registrarRetirada)
+btnAtualizarLivro.addEventListener("click", atualizarLivro)

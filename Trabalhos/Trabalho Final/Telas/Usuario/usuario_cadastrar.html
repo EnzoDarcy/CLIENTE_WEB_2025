@@ -2,9 +2,39 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <title>Usuários CEFET-RJ</title>
+  <link rel="stylesheet" href="../../css/estilo.css">
+  <script src="../../js/script_usu_c.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Cadastro de Usuários Nova Friburgo</h1>
+
+    <section class="acoes">
+      <h2>Cadastrar Novo Usuário</h2>
+      <input id="novoNome" type="text" placeholder="Nome">
+      <input id="novoEmail" type="text" placeholder="E-mail">
+      <input id="novoSenha" type="text" placeholder="Senha">
+      <button id="cadastrarUsuario">Cadastrar</button>
+      <input id="novoId" type="text" placeholder="ID do usuario a Atualizar">
+      <button id="atualizarUsuario">Atualizar</button>
+    </section>
+
+    <div id="saida"></div>
+  </div>
+
+  
+</body>
+</html>
+
+<!-- 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
   <title>Biblioteca CEFET-RJ</title>
-  <link rel="stylesheet" href="./css/estilo.css">
-  <script src="./js/script.js" defer></script>
+  <link rel="stylesheet" href="../../css/estilo.css">
+  <script src="../../js/script_liv_c.js" defer></script>
 </head>
 <body>
   <div class="container">
@@ -49,7 +79,6 @@
 </body>
 </html>
 
-<!-- 
   CREATE TABLE livro(
   id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   titulo varchar(60),
@@ -67,4 +96,5 @@ id bigint PRIMARY KEY AUTO_INCREMENT not null,
   nome varchar(60),
   email varchar(60),
   senha varchar(60)
-) -->
+)
+-->

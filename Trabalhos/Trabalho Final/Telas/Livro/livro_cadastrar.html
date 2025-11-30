@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Biblioteca CEFET-RJ</title>
+  <link rel="stylesheet" href="../../css/estilo.css">
+  <script src="../../js/script_liv_c.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Biblioteca do CEFET-RJ Nova Friburgo</h1>
+
+    <section class="acoes">
+      <h2>Cadastrar Novo Livro</h2>
+      <input id="novoIssn" type="text" placeholder="ISSN">
+      <input id="novoTitulo" type="text" placeholder="Título">
+      <input id="novoAutor" type="text" placeholder="Autor">
+      <input id="novoEditora" type="text" placeholder="Editora">
+      <input id="novoAno" type="number" placeholder="Ano">
+      <input id="novoGenero" type="text" placeholder="Gênero">
+      <input id="novoLocal" type="text" placeholder="Localização (ex: 3-A)">
+      <input id="novoQtd" type="text" placeholder="Quantidade">
+      <button id="cadastrarLivro">Cadastrar</button>
+      <input id="novoId" type="text" placeholder="ID do livro a Atualizar">
+      <button id="atualizarLivro">Atualizar</button>
+    </section>
+
+    <div id="saida"></div>
+  </div>
+
+  
+</body>
+</html>
+
+<!-- 
+  CREATE TABLE livro(
+  id BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+  titulo varchar(60),
+  autor varchar(60),
+  editora varchar(60),
+  anoPublicacao varchar(60),
+  genero varchar(60),
+  localizacao varchar(60),
+  ISSN varchar(60),
+  disponivel boolean
+  );
+  
+Create table usuario(
+id bigint PRIMARY KEY AUTO_INCREMENT not null,
+  nome varchar(60),
+  email varchar(60),
+  senha varchar(60)
+) -->
